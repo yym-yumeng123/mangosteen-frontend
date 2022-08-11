@@ -11,4 +11,12 @@
 
 ### 部署github
 
-- settings/pages -> Branch/master save
+- settings/pages -> Branch/master save -> 打包 -> 部署github
+
+```ts
+export default defineConfig({
+  base: '/mangosteen-frontend/dist/', // 添加 dist 在 github 上的路径
+  plugins: [vue()]
+})
+
+```
