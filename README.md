@@ -76,3 +76,9 @@ export default App
 
 
 ```
+
+### 引入 vue-router4
+
+```
+yarn add vue-router@4
+```
