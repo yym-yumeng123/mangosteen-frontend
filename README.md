@@ -82,3 +82,32 @@ export default App
 ```
 yarn add vue-router@4
 ```
+
+### 页面划分和布局
+
+```js
+// 前端路由
+/welcome/1 // 欢迎页
+/welcome/2
+/welcome/3
+/welcome/4
+/start  // 开始页
+/items/new
+/tags/new // 标签详情
+/session/new // 登录页
+/statistics // 统计页
+
+// 组件划分
+layout/welcome
+layout/main
+tabs
+button
+overlay
+...
+
+// 排期
+每个页面工作量不同
+每个组件工作量不同
+不能一概而论
+留好 buffer: 预估的时间乘以n => 1.2 < n < 3.14
+```
