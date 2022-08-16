@@ -7,13 +7,13 @@ import { WelcomeThird } from "../components/welcome/third"
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/welecome",
+    path: "/welcome",
     component: Welcome,
     children: [
-      { path: "/one", component: WelcomeFirst },
-      { path: "/two", component: WelcomeSecond },
-      { path: "/three", component: WelcomeThird },
-      { path: "/four", component: WelcomeForth },
+      { path: "one", component: WelcomeFirst },
+      { path: "two", component: WelcomeSecond },
+      { path: "three", component: WelcomeThird },
+      { path: "four", component: WelcomeForth },
     ],
   },
 ]

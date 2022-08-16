@@ -3,7 +3,6 @@ import { createRouter } from "vue-router"
 import App from "./App"
 import routes from "./router/routes"
 import { history } from "./shared/history"
-import "./style.css"
 
 const router = createRouter({ history, routes })
 

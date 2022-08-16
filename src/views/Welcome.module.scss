@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  > header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  > main {
+    background-color: yellow;
+    flex: 1;
+  }
+}
