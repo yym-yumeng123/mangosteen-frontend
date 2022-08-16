@@ -1,9 +1,9 @@
 import { RouteRecordRaw } from "vue-router"
 import { Welcome } from "../views/Welcome"
-import { WelcomeFirst } from "../components/welcome/first"
-import { WelcomeForth } from "../components/welcome/forth"
-import { WelcomeSecond } from "../components/welcome/second"
-import { WelcomeThird } from "../components/welcome/third"
+import { WelcomeFirst } from "../components/welcome/First"
+import { WelcomeSecond } from "../components/welcome/Second"
+import { WelcomeThird } from "../components/welcome/Third"
+import { WelcomeForth } from "../components/welcome/Forth"
 
 const routes: RouteRecordRaw[] = [
   {

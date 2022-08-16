@@ -2,15 +2,22 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  padding-top: 66px;
+  // 线性背景色
+  background-image: linear-gradient(to bottom, #5d33be 0%, #8f4cd7 100%);
   > header {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     flex-shrink: 0;
+    > h1 {
+      color: #d4d4ee;
+    }
   }
   > main {
-    background-color: yellow;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 }
