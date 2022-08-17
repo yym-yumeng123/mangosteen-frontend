@@ -4,7 +4,7 @@
   height: 100vh;
   padding-top: 66px;
   // 线性背景色
-  background-image: linear-gradient(to bottom, #5d33be 0%, #8f4cd7 100%);
+  background-image: linear-gradient(to bottom, var(--welcome-bg-start) 0%, var(--welcome-bg-end) 100%);
   > header {
     display: flex;
     justify-content: center;

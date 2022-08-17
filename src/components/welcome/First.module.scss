@@ -18,13 +18,18 @@
     }
   }
   .actions {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: var(--z-index-bottom-nav);
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 16px;
     color: var( --welcome-text-color);
-    font-size: 32px;
-    padding: 24px 0;
+    font-size: 24px;
+    padding: 24px 16px;
+    background-color: var(--welcome-bg-end);
     > .fake {
       visibility: hidden;
     }
