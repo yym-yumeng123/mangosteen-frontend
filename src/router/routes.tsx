@@ -6,10 +6,12 @@ import { WelcomeThird } from "../components/welcome/Third"
 import { WelcomeForth } from "../components/welcome/Forth"
 
 const routes: RouteRecordRaw[] = [
+  { path: "/", redirect: "/welcome" },
   {
     path: "/welcome",
     component: Welcome,
     children: [
+      { path: "", redirect: '/welcome/one' },
       { path: "one", component: WelcomeFirst },
       { path: "two", component: WelcomeSecond },
       { path: "three", component: WelcomeThird },
