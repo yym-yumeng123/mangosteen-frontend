@@ -3,7 +3,7 @@ import { createRouter } from "vue-router"
 import App from "./App"
 import { routes } from "./router/routes"
 import { history } from "./shared/history"
-
+import '@svgstore';
 const router = createRouter({ history, routes })
 
 const app = createApp(App)
