@@ -1,30 +1,11 @@
-import s from "./WelcomeLayout.module.scss"
-import Pig from "../../assets/icons/pig.svg"
-import { RouterLink } from "vue-router"
-import { WelcomeLayout } from "./WelcomeLayout"
-
-export const WelcomeFirst = () => {
-  return (
-    <WelcomeLayout>
-      {{
-        icon: () => <img src={Pig} />,
-        title: () => (
-          <h2>
-            会挣钱
-            <br />
-            还要会省钱
-          </h2>
-        ),
-        buttons: () => (
-          <>
-            <RouterLink class={s.fake} to='/start' />
-            <RouterLink to='/welcome/two'>下一步</RouterLink>
-            <RouterLink to='/start'>跳过</RouterLink>
-          </>
-        ),
-      }}
-    </WelcomeLayout>
-  )
+import s from './welcome.module.scss';
+import pig from '../../assets/icons/pig.svg';
+import { FunctionalComponent } from 'vue';
+export const First: FunctionalComponent = () => {
+  return <div class={s.card}>
+    <img src={pig}/>
+    <h2>会挣钱<br />还会省钱</h2>
+  </div>
 }
 
-WelcomeFirst.displayName = "WelcomeFirst"
+First.displayName = 'First'

@@ -1,7 +1,7 @@
 import { createApp } from "vue"
 import { createRouter } from "vue-router"
 import App from "./App"
-import routes from "./router/routes"
+import { routes } from "./router/routes"
 import { history } from "./shared/history"
 
 const router = createRouter({ history, routes })
