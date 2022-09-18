@@ -1,7 +1,11 @@
 import { defineComponent } from "vue"
 import s from "./button.module.scss"
 
-export const Button = defineComponent({
+interface ButtonProps {
+  onClick: (e: MouseEvent) => void
+}
+
+export const Button = defineComponent<ButtonProps>({
   setup: (props, context) => {
     return () => <button class={s.button}>{context.slots.default?.()}</button>
   },
