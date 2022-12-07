@@ -1,5 +1,11 @@
 # Vue 3 + TypeScript + Vite
 
+### 创建项目
+
+```bash
+pnpm create vite projectName -- --template --vue-ts 
+```
+
 ```json
 
 "scripts": {
