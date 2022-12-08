@@ -1,6 +1,7 @@
-import { defineComponent, PropType } from "vue"
+import { defineComponent, PropType, ref } from "vue"
 import { MainLayout } from "../../layouts/MainLayout"
 import { Icon } from "../../shared/Icon/Icon"
+import { TabItem, Tabs } from "../../shared/Tabs/Tabs"
 import s from "./ItemCreate.module.scss"
 
 export const ItemCreate = defineComponent({
@@ -10,6 +11,8 @@ export const ItemCreate = defineComponent({
     },
   },
   setup: (props, context) => {
+    const refKind = ref("支出")
+
     const onClickBack = () => {}
 
     return () => (
@@ -19,7 +22,17 @@ export const ItemCreate = defineComponent({
           icon: () => (
             <Icon name='left' class={s.navIcon} onClick={onClickBack} />
           ),
-          default: () => <>main</>,
+          default: () => (
+            <>
+              <Tabs
+                selected={refKind.value}
+                v-model:selected={refKind.value}
+              >
+                <TabItem name='支出'>支出</TabItem>
+                <TabItem name='收入'>收入</TabItem>
+              </Tabs>
+            </>
+          ),
         }}
       </MainLayout>
     )
