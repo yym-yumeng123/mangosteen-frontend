@@ -8,6 +8,9 @@ export type IconNames =
   | "cloud"
   | "mangosteen"
   | "pig"
+  | "menu"
+  | "export"
+  | "notify"
 
 export const Icon = defineComponent({
   // inheritAttrs: false,

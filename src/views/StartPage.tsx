@@ -3,6 +3,7 @@ import { Button } from "../shared/Button/Button"
 import { Center } from "../shared/Center/Center"
 import { FloatButton } from "../shared/FloatButton/FloatButton"
 import { Icon } from "../shared/Icon/Icon"
+import { NavBar } from "../shared/Navbar/Navbar"
 import s from "./StartPage.module.scss"
 
 export const StartPage = defineComponent({
@@ -14,7 +15,12 @@ export const StartPage = defineComponent({
     }
     return () => (
       <div>
-        <nav>menu</nav>
+        <NavBar>
+          {{
+            default: "山竹记账",
+            icon: <Icon name='menu' class={s.navIcon} />,
+          }}
+        </NavBar>
         <Center class={s.pig_wrapper}>
           <Icon name='pig' class={s.pig} />
         </Center>

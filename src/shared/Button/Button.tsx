@@ -6,6 +6,7 @@ interface ButtonProps {
 }
 
 export const Button = defineComponent<ButtonProps>({
+  // inheritAttrs: false,
   setup: (props, context) => {
     return () => <button class={s.button}>{context.slots.default?.()}</button>
   },
