@@ -5,7 +5,7 @@ export const Tabs = defineComponent({
   props: {
     selected: {
       type: String as PropType<string>,
-      required: true,
+      // required: true,
     },
   },
   setup: (props, context) => {
@@ -19,19 +19,20 @@ export const Tabs = defineComponent({
       }
 
       return (
-        <div class={s.tab}>
-          <ol class={s.tab_nav}>
+        <div class={s.tabs}>
+          <ol class={s.tabs_nav}>
             {array.map((i) => {
               return (
                 <li
                   class={i.props?.name === props.selected ? s.selected : ""}
-                  onClick={() => context.emit('update:selected', i.props?.name)}
+                  onClick={() => context.emit("update:selected", i.props?.name)}
                 >
                   {i.props?.name}
                 </li>
               )
             })}
           </ol>
+          <div>{array.find((i) => i.props?.name === props.selected)}</div>
         </div>
       )
     }

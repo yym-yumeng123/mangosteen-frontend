@@ -25,7 +25,6 @@ export const ItemCreate = defineComponent({
           default: () => (
             <>
               <Tabs
-                selected={refKind.value}
                 v-model:selected={refKind.value}
               >
                 <TabItem name='支出'>支出</TabItem>
