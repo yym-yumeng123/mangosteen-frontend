@@ -6,10 +6,10 @@ import s from "./Welcome.module.scss"
 export const Welcome = defineComponent({
   setup: (props, context) => {
     const refMain = ref<HTMLElement | null>(null)
-    const { swiping, direction } = useSwipe(refMain)
-    watchEffect(() => {
-      console.log("direction", direction.value)
-    })
+    // const { swiping, direction } = useSwipe(refMain)
+    // watchEffect(() => {
+    //   console.log("direction", direction.value)
+    // })
 
     return () => (
       <div class={s.wrapper}>
