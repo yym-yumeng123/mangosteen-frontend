@@ -11,6 +11,7 @@ export type IconNames =
   | "menu"
   | "export"
   | "notify"
+  | 'charts'
 
 export const Icon = defineComponent({
   // inheritAttrs: false,
@@ -19,11 +20,14 @@ export const Icon = defineComponent({
       type: String as PropType<IconNames>,
       required: true,
     },
+    onClick: {
+      type: Function as PropType<() => void>,
+    },
   },
   setup: (props) => {
-    const { name } = props
+    const { name, onClick } = props
     return () => (
-      <svg class={s.icon}>
+      <svg class={s.icon} onClick={onClick}>
         <use xlinkHref={"#" + name}></use>
       </svg>
     )
