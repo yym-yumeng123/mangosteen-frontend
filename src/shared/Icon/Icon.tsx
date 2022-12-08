@@ -12,6 +12,7 @@ export type IconNames =
   | "export"
   | "notify"
   | 'charts'
+  | 'left'
 
 export const Icon = defineComponent({
   // inheritAttrs: false,
