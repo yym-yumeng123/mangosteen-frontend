@@ -7,14 +7,18 @@ import { Second } from "../components/welcome/Second"
 import { SecondActions } from "../components/welcome/SecondActions"
 import { Third } from "../components/welcome/Third"
 import { ThirdActions } from "../components/welcome/ThirdActions"
-import { Welcome } from "../views/Welcome"
-import { StartPage } from "../views/StartPage"
+
+import { WelcomePage } from "../views/WelcomePage/WelcomePage"
+import { StartPage } from "../views/StartPage/StartPage"
+import { ItemPage } from "../views/ItemPage/ItemPage"
+import { ItemList } from "../components/item/ItemList"
+import { ItemCreate } from "../components/item/ItemCreate"
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
   {
     path: "/welcome",
-    component: Welcome,
+    component: WelcomePage,
     children: [
       { path: "", redirect: "/welcome/one" },
       {
@@ -42,5 +46,19 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/start",
     component: StartPage,
+  },
+  {
+    path: "/items",
+    component: ItemPage,
+    children: [
+      {
+        path: "",
+        component: ItemList,
+      },
+      {
+        path: "create",
+        component: ItemCreate,
+      },
+    ],
   },
 ]

@@ -5,9 +5,9 @@ import {
   useRoute,
   useRouter,
 } from "vue-router"
-import { useSwipe } from "../hooks/useSwipe"
-import { throttle } from "../shared/throttle"
-import s from "./Welcome.module.scss"
+import { useSwipe } from "../../hooks/useSwipe"
+import { throttle } from "../../shared/throttle"
+import s from "./WelcomePage.module.scss"
 
 const pushMap: Record<string, string> = {
   welcomeOne: "/welcome/two",
@@ -16,7 +16,7 @@ const pushMap: Record<string, string> = {
   welcomeFour: "/start",
 }
 
-export const Welcome = defineComponent({
+export const WelcomePage = defineComponent({
   setup: (props, context) => {
     const router = useRouter()
     const route = useRoute()
