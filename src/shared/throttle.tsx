@@ -1,9 +1,13 @@
-export const throttle = (fn: Function, time: number) => {
+export const throttle = <T extends (...args: unknown[]) => any>(
+  fn: T,
+  time: number
+) => {
   let timer: number | undefined = undefined
-  return (...args: any[]) => {
+  let result: ReturnType<T>
+  return (...args: Parameters<T>) => {
     // timer 存在调用过
     if (timer) {
-      return
+      return result
     } else {
       // 不存在, 调用
       fn(...args)
@@ -13,6 +17,8 @@ export const throttle = (fn: Function, time: number) => {
         // 一段时间后, 清空 timer
         timer = undefined
       }, time)
+
+      return result
     }
   }
 }
