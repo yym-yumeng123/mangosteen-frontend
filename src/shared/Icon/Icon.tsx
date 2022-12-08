@@ -13,6 +13,7 @@ export type IconNames =
   | "notify"
   | 'charts'
   | 'left'
+  | 'date'
 
 export const Icon = defineComponent({
   // inheritAttrs: false,
