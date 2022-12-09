@@ -1,11 +1,12 @@
 import { defineComponent } from "vue"
 import { NavBar } from "../shared/Navbar/Navbar"
+import s from './MainLayout.module.scss'
 
 export const MainLayout = defineComponent({
   setup: (props, context) => {
     return () => (
-      <div>
-        <NavBar>
+      <div  class={s.wrapper}>
+        <NavBar  class={s.navbar}>
           {{
             default: () => context.slots?.title?.(),
             icon: () => context.slots?.icon?.(),
