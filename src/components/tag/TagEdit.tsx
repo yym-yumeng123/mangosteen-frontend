@@ -33,7 +33,7 @@ export const TagEdit = defineComponent({
     return () => (
       <MainLayout>
         {{
-          title: () => "新建标签",
+          title: () => "编辑标签",
           icon: () => <Icon name='left' onClick={() => {}} />,
           default: () => (
             <>
