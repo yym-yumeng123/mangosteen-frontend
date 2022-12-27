@@ -90,6 +90,10 @@ export const FormItem = defineComponent({
           return (
             <>
               <input
+                value={props.modelValue}
+                onInput={(e: any) =>
+                  context.emit("update:modelValue", e.target.value)
+                }
                 class={[s.formItem, s.input, s.validationCodeInput]}
                 placeholder={props.placeholder}
               />
@@ -155,7 +159,7 @@ export const FormItem = defineComponent({
             {props.label && <span class={s.formItem_name}>{props.label}</span>}
             <div class={s.formItem_value}>{content.value}</div>
             <div class={s.formItem_errorHint}>
-              <span>{props.error ? getFriendlyError(props.error) : '　'}</span>
+              <span>{props.error ? getFriendlyError(props.error) : "　"}</span>
             </div>
           </label>
         </div>

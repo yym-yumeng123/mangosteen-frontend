@@ -3,14 +3,15 @@ import { defineComponent, PropType, reactive, ref } from "vue"
 import { MainLayout } from "../../layouts/MainLayout"
 import { Button } from "../../shared/Button/Button"
 import { Form, FormItem } from "../../shared/Form/Form"
+import { history } from "../../shared/history"
 import { http } from "../../shared/Http"
 import { Icon } from "../../shared/Icon/Icon"
-import { validate } from "../../shared/validate"
+import { hasError, validate } from "../../shared/validate"
 import s from "./SignInPage.module.scss"
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
-      email: "",
+      email: "1614527443@qq.com",
       code: "",
     })
     const errors = reactive({
@@ -18,7 +19,7 @@ export const SignInPage = defineComponent({
       code: [],
     })
     const refValidationCode = ref<any>()
-    const onSubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
       e.preventDefault()
       Object.assign(errors, {
         email: [],
@@ -37,6 +38,11 @@ export const SignInPage = defineComponent({
           { key: "code", type: "required", message: "必填" },
         ])
       )
+      if(!hasError(errors)){
+        const response = await http.post<{jwt: string}>('/session', formData).catch(onError)
+        localStorage.setItem('jwt', response.data.jwt)
+        history.push('/')
+      }
     }
     const onError = (error: any) => {
       if(error.response.status === 422){
@@ -44,6 +50,7 @@ export const SignInPage = defineComponent({
       }
       throw error
     }
+
     const onClickSendValidationCode = async () => {
       const response = await http.post('/validation_codes', { email: formData.email }).catch(onError)
       // console.log(response)
@@ -79,7 +86,7 @@ export const SignInPage = defineComponent({
                   ref={refValidationCode}
                 />
                 <FormItem style={{ paddingTop: "96px" }}>
-                  <Button>登录</Button>
+                  <Button type="submit">登录</Button>
                 </FormItem>
               </Form>
             </div>
