@@ -37,8 +37,9 @@ export const SignInPage = defineComponent({
       )
     }
     const onClickSendValidationCode = async () => {
-      const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
-      console.log(response)
+      // const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
+      // console.log(response)
+      console.log('111')
     }
     return () => (
       <MainLayout>
@@ -66,6 +67,7 @@ export const SignInPage = defineComponent({
                   v-model={formData.code}
                   error={errors.code?.[0]}
                   onClick={onClickSendValidationCode}
+                  countFrom={5}
                 />
                 <FormItem style={{ paddingTop: "96px" }}>
                   <Button>登录</Button>
