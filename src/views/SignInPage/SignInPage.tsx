@@ -1,5 +1,5 @@
 import axios from "axios"
-import { defineComponent, PropType, reactive } from "vue"
+import { defineComponent, PropType, reactive, ref } from "vue"
 import { MainLayout } from "../../layouts/MainLayout"
 import { Button } from "../../shared/Button/Button"
 import { Form, FormItem } from "../../shared/Form/Form"
@@ -16,6 +16,7 @@ export const SignInPage = defineComponent({
       email: [],
       code: [],
     })
+    const refValidationCode = ref<any>()
     const onSubmit = (e: Event) => {
       e.preventDefault()
       Object.assign(errors, {
@@ -37,9 +38,10 @@ export const SignInPage = defineComponent({
       )
     }
     const onClickSendValidationCode = async () => {
-      // const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
+      const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
       // console.log(response)
       console.log('111')
+      refValidationCode.value.startCount()
     }
     return () => (
       <MainLayout>
@@ -68,6 +70,7 @@ export const SignInPage = defineComponent({
                   error={errors.code?.[0]}
                   onClick={onClickSendValidationCode}
                   countFrom={5}
+                  ref={refValidationCode}
                 />
                 <FormItem style={{ paddingTop: "96px" }}>
                   <Button>登录</Button>
