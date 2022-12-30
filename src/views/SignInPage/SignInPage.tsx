@@ -1,5 +1,6 @@
 import axios from "axios"
 import { defineComponent, PropType, reactive, ref } from "vue"
+import { useRoute, useRouter } from "vue-router"
 import { MainLayout } from "../../layouts/MainLayout"
 import { Button } from "../../shared/Button/Button"
 import { Form, FormItem } from "../../shared/Form/Form"
@@ -10,6 +11,8 @@ import { hasError, validate } from "../../shared/validate"
 import s from "./SignInPage.module.scss"
 export const SignInPage = defineComponent({
   setup: (props, context) => {
+    const router = useRouter()
+    const route = useRoute()
     const formData = reactive({
       email: "1614527443@qq.com",
       code: "",
@@ -41,7 +44,13 @@ export const SignInPage = defineComponent({
       if(!hasError(errors)){
         const response = await http.post<{jwt: string}>('/session', formData).catch(onError)
         localStorage.setItem('jwt', response.data.jwt)
-        history.push('/')
+        /**
+         * 1. 使用 localStorage || sessionStorage 存储路由信息
+         * 2. 使用 queryString 
+         */
+        // const xxx = localStorage.getItem('returnTo')
+        const returnTo = route.query.return_to?.toString()
+        router.push(returnTo || '/')
       }
     }
     const onError = (error: any) => {
