@@ -7,6 +7,7 @@ import { Form, FormItem } from "../../shared/Form/Form"
 import { history } from "../../shared/history"
 import { http } from "../../shared/Http"
 import { Icon } from "../../shared/Icon/Icon"
+import { refreshMe } from "../../shared/me"
 import { hasError, validate } from "../../shared/validate"
 import s from "./SignInPage.module.scss"
 export const SignInPage = defineComponent({
@@ -41,27 +42,34 @@ export const SignInPage = defineComponent({
           { key: "code", type: "required", message: "必填" },
         ])
       )
-      if(!hasError(errors)){
-        const response = await http.post<{jwt: string}>('/session', formData).catch(onError)
-        localStorage.setItem('jwt', response.data.jwt)
+      if (!hasError(errors)) {
+        const response = await http
+          .post<{ jwt: string }>("/session", formData)
+          .catch(onError)
+        localStorage.setItem("jwt", response.data.jwt)
         /**
          * 1. 使用 localStorage || sessionStorage 存储路由信息
-         * 2. 使用 queryString 
+         * 2. 使用 queryString
          */
         // const xxx = localStorage.getItem('returnTo')
+        console.log("route.path", route.query.return_to?.toString())
         const returnTo = route.query.return_to?.toString()
-        router.push(returnTo || '/')
+        refreshMe().then(() => {
+          router.push(route.query.return_to?.toString() || "/")
+        })
       }
     }
     const onError = (error: any) => {
-      if(error.response.status === 422){
+      if (error.response.status === 422) {
         Object.assign(errors, error.response.data.errors)
       }
       throw error
     }
 
     const onClickSendValidationCode = async () => {
-      const response = await http.post('/validation_codes', { email: formData.email }).catch(onError)
+      const response = await http
+        .post("/validation_codes", { email: formData.email })
+        .catch(onError)
       // console.log(response)
       refValidationCode.value.startCount()
     }
@@ -95,7 +103,7 @@ export const SignInPage = defineComponent({
                   ref={refValidationCode}
                 />
                 <FormItem style={{ paddingTop: "96px" }}>
-                  <Button type="submit">登录</Button>
+                  <Button type='submit'>登录</Button>
                 </FormItem>
               </Form>
             </div>
