@@ -1,10 +1,9 @@
-import axios from "axios"
-import { defineComponent, PropType, reactive, ref } from "vue"
+import { defineComponent, reactive, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { MainLayout } from "../../layouts/MainLayout"
+import { BackIcon } from "../../shared/BackIcon/BackIcon"
 import { Button } from "../../shared/Button/Button"
 import { Form, FormItem } from "../../shared/Form/Form"
-import { history } from "../../shared/history"
 import { http } from "../../shared/Http"
 import { Icon } from "../../shared/Icon/Icon"
 import { refreshMe } from "../../shared/me"
@@ -77,7 +76,7 @@ export const SignInPage = defineComponent({
       <MainLayout>
         {{
           title: () => "登录",
-          icon: () => <Icon name='left' />,
+          icon: () => <BackIcon />,
           default: () => (
             <div class={s.wrapper}>
               <div class={s.logo}>

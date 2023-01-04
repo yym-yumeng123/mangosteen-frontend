@@ -1,5 +1,6 @@
 import { defineComponent, reactive } from "vue"
 import { MainLayout } from "../../layouts/MainLayout"
+import { BackIcon } from "../../shared/BackIcon/BackIcon"
 import { Button } from "../../shared/Button/Button"
 import { Icon } from "../../shared/Icon/Icon"
 import { Rules, validate } from "../../shared/validate"
@@ -34,7 +35,7 @@ export const TagEdit = defineComponent({
       <MainLayout>
         {{
           title: () => "编辑标签",
-          icon: () => <Icon name='left' onClick={() => {}} />,
+          icon: () =>  <BackIcon />,
           default: () => (
             <>
               <TagForm />
