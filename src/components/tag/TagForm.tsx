@@ -1,7 +1,6 @@
-import { defineComponent, PropType, reactive } from "vue"
+import { defineComponent, onMounted, PropType, reactive } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { Button } from "../../shared/Button/Button"
-import { EmojiSelect } from "../../shared/EmojiSelect/EmojiSelect"
 import { Form, FormItem } from "../../shared/Form/Form"
 import { http } from "../../shared/Http"
 import { onFormError } from "../../shared/onFormError"
@@ -9,15 +8,14 @@ import { hasError, Rules, validate } from "../../shared/validate"
 import s from "./Tag.module.scss"
 export const TagForm = defineComponent({
   props: {
-    name: {
-      type: String as PropType<string>,
-    },
+    id: Number,
   },
   setup: (props, context) => {
     const route = useRoute()
     const router = useRouter()
 
-    const formData = reactive({
+    const formData = reactive<Partial<Tag>>({
+      id: undefined,
       kind: route.query.kind!.toString(),
       name: "",
       sign: "",
@@ -42,15 +40,30 @@ export const TagForm = defineComponent({
         sign: [],
       })
       Object.assign(errors, validate(formData, rules))
-      if(!hasError(errors)){
-        const response = await http.post('/tags', formData, {
-          params: {_mock: 'tagCreate'},
-        }).catch((error)=>
-          onFormError(error, (data)=> Object.assign(errors, data.errors))
+      if (!hasError(errors)) {
+        const promise = (await formData.id)
+          ? http.patch(`/tags/${formData.id}`, formData, {
+              params: { _mock: "tagEdit" },
+            })
+          : http.post("/tags", formData, {
+              params: { _mock: "tagCreate" },
+            })
+        await promise.catch((error) =>
+          onFormError(error, (data) => Object.assign(errors, data.errors))
         )
         router.back()
       }
     }
+
+    onMounted(async () => {
+      if (!props.id) {
+        return
+      }
+      const response = await http.get<Resource<Tag>>(`/tags/${props.id}`, {
+        _mock: "tagShow",
+      })
+      Object.assign(formData, response.data.resource)
+    })
     return () => (
       <Form onSubmit={onSubmit}>
         <FormItem
@@ -69,10 +82,11 @@ export const TagForm = defineComponent({
           <p class={s.tips}>记账时长按标签即可进行编辑</p>
         </FormItem>
         <FormItem>
-          <Button type="submit" class={[s.button]}>确定</Button>
+          <Button type='submit' class={[s.button]}>
+            确定
+          </Button>
         </FormItem>
       </Form>
     )
   },
 })
-
