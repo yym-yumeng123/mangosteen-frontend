@@ -2,9 +2,11 @@
  * @desciption 浮层
  */
 
-import { defineComponent, PropType, ref } from "vue"
-import { RouterLink } from "vue-router"
+import { Dialog } from "vant"
+import { defineComponent, onMounted, PropType, ref } from "vue"
+import { RouterLink, useRoute } from "vue-router"
 import { Icon } from "../Icon/Icon"
+import { mePromise } from "../me"
 import s from "./Overlay.module.scss"
 
 export const Overlay = defineComponent({
@@ -17,32 +19,53 @@ export const Overlay = defineComponent({
     const close = () => {
       props.onClose?.()
     }
-    const onClickSignIn = () => {}
+    const route = useRoute()
+    const me = ref<User>()
+    onMounted(async () => {
+      const response = await mePromise
+      me.value = response?.data.resource
+    })
+    const onSignOut = async () => {
+      await Dialog.confirm({
+        title: '确认',
+        message: '你真的要退出登录吗？',
+      })
+      localStorage.removeItem('jwt')
+    }
     return () => (
       <>
         <div class={s.mask} onClick={close}></div>
         <div class={s.overlay}>
-          <section class={s.currentUser} onClick={onClickSignIn}>
-            <h2>未登录用户</h2>
-            <p>点击这里登录</p>
+          <section class={s.currentUser}>
+            {me.value ? (
+              <div>
+                <h2 class={s.email}>{me.value.email}</h2>
+                <p onClick={onSignOut}>点击这里退出登录</p>
+              </div>
+            ) : (
+              <RouterLink to={`/sign_in?return_to=${route.fullPath}`}>
+                <h2>未登录用户</h2>
+                <p>点击这里登录</p>
+              </RouterLink>
+            )}
           </section>
           <nav>
             <ul class={s.action_list}>
               <li>
-                <RouterLink to='/statistics' class={s.action}>
-                  <Icon name='charts' class={s.icon} />
+                <RouterLink to="/statistics" class={s.action}>
+                  <Icon name="charts" class={s.icon} />
                   <span>统计图表</span>
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to='/export' class={s.action}>
-                  <Icon name='export' class={s.icon} />
+                <RouterLink to="/export" class={s.action}>
+                  <Icon name="export" class={s.icon} />
                   <span>导出数据</span>
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to='/notify' class={s.action}>
-                  <Icon name='notify' class={s.icon} />
+                <RouterLink to="/notify" class={s.action}>
+                  <Icon name="notify" class={s.icon} />
                   <span>记账提醒</span>
                 </RouterLink>
               </li>
