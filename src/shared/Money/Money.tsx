@@ -1,3 +1,8 @@
+/**
+ * 补零
+ * 精度问题
+ */
+
 import { defineComponent, PropType } from "vue"
 export const Money = defineComponent({
   props: {
