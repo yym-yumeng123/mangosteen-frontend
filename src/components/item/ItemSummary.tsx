@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, reactive, ref } from "vue"
+import { defineComponent, onMounted, PropType, reactive, ref, watch } from "vue"
 import { Button } from "../../shared/Button/Button"
 import { Datetime } from "../../shared/DateTime/DateTime"
 import { FloatButton } from "../../shared/FloatButton/FloatButton"
@@ -38,12 +38,22 @@ export const ItemSummary = defineComponent({
     }
     onMounted(fetchItems)
 
+    watch(
+      () => [props.startDate, props.endDate],
+      () => {
+        items.value = []
+        hasMore.value = false
+        page.value = 0
+        fetchItems()
+      }
+    )
+
     const itemsBalance = reactive({
       expenses: 0,
       income: 0,
       balance: 0,
     })
-    onMounted(async () => {
+    const fetchItemsBalance = async () => {
       if (!props.startDate || !props.endDate) {
         return
       }
@@ -54,7 +64,19 @@ export const ItemSummary = defineComponent({
         _mock: "itemIndexBalance",
       })
       Object.assign(itemsBalance, response.data)
-    })
+    }
+    onMounted(fetchItemsBalance)
+    watch(
+      () => [props.startDate, props.endDate],
+      () => {
+        Object.assign(itemsBalance, {
+          expenses: 0,
+          income: 0,
+          balance: 0,
+        })
+        fetchItemsBalance()
+      }
+    )
     return () => (
       <div class={s.wrapper}>
         {items.value ? (
@@ -77,16 +99,13 @@ export const ItemSummary = defineComponent({
               {items.value.map((item) => (
                 <li>
                   <div class={s.sign}>
-                    <span>{item.tags_id[0]}</span>
+                    <span>{item.tags![0].sign}</span>
                   </div>
                   <div class={s.text}>
                     <div class={s.tagAndAmount}>
-                      <span class={s.tag}>{item.tags_id[0]}</span>
+                      <span class={s.tag}>{item.tags![0].name}</span>
                       <span class={s.amount}>
-                        ￥
-                        <>
-                          <Money value={item.amount} />
-                        </>
+                        ￥<Money value={item.amount} />
                       </span>
                     </div>
                     <div class={s.time}>
