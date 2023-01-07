@@ -54,6 +54,9 @@ export class Time {
   lastDayOfYear() {
     return new Time(new Date(this.date.getFullYear() + 1, 0, 0, 0, 0, 0))
   }
+  getTimestamp() {
+    return this.date.getTime()
+  }
   getRaw() {
     return this.date
   }
