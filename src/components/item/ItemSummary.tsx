@@ -109,7 +109,7 @@ export const ItemSummary = defineComponent({
                       </span>
                     </div>
                     <div class={s.time}>
-                      <Datetime value={item.happen_at} />
+                      <Datetime value={item.happend_at} />
                     </div>
                   </div>
                 </li>

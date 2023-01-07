@@ -22,7 +22,7 @@ export const ItemCreate = defineComponent({
       kind: "支出",
       tags_id: [],
       amount: 0,
-      happen_at: new Date().toISOString(),
+      happend_at: new Date().toISOString(),
     })
     const router = useRouter()
     const onError = (error: AxiosError<ResourceError>) => {
@@ -66,7 +66,7 @@ export const ItemCreate = defineComponent({
                 </Tabs>
                 <div class={s.inputPad_wrapper}>
                   <InputPad
-                    v-model:happenAt={formData.happen_at}
+                    v-model:happenAt={formData.happend_at}
                     v-model:amount={formData.amount}
                     onSubmit={onSubmit}
                   />

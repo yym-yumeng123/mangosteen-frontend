@@ -7,7 +7,7 @@ import { Bars } from "./Bars"
 import { http } from "../../shared/Http"
 import { Time } from "../../shared/time"
 
-type Data1Item = { happen_at: string; amount: number }
+type Data1Item = { happend_at: string; amount: number }
 type Data1 = Data1Item[]
 type Data2Item = { tag_id: number; tag: Tag; amount: number }
 type Data2 = Data2Item[]
@@ -41,7 +41,7 @@ export const Charts = defineComponent({
           .getTimestamp()
         const item = data1.value[0]
         const amount =
-          item && new Date(item.happen_at).getTime() === time
+          item && new Date(item.happend_at).getTime() === time
             ? data1.value.shift()!.amount
             : 0
         return [new Date(time).toISOString(), amount]
@@ -55,7 +55,7 @@ export const Charts = defineComponent({
           happen_after: props.startDate,
           happen_before: props.endDate,
           kind: kind.value,
-          group_by: 'happen_at',
+          group_by: 'happend_at',
           _mock: "itemSummary",
         }
       )
@@ -83,6 +83,7 @@ export const Charts = defineComponent({
       })
       data2.value = response.data.groups
     })
+    
     return () => (
       <div class={s.wrapper}>
         <FormItem

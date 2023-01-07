@@ -34,7 +34,7 @@ type Item = {
   amount: number
   tags_id: number[]
   tags?: Tag[]
-  happen_at: string
+  happend_at: string
   kind: expenses | income
 }
 

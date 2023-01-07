@@ -11,9 +11,9 @@ export const mockItemSummary: Mock = (config) => {
       200,
       {
         groups: [
-          { happen_at: "2022-07-18T00:00:00.000+0800", amount: 100 },
-          { happen_at: "2022-07-22T00:00:00.000+0800", amount: 300 },
-          { happen_at: "2022-07-29T00:00:00.000+0800", amount: 200 },
+          { happend_at: "2023-01-18T00:00:00.000+0800", amount: 100 },
+          { happend_at: "2023-01-22T00:00:00.000+0800", amount: 300 },
+          { happend_at: "2023-01-29T00:00:00.000+0800", amount: 200 },
         ],
         summary: 600,
       },
@@ -23,9 +23,21 @@ export const mockItemSummary: Mock = (config) => {
       200,
       {
         groups: [
-          { tag_id: 1, tag: { id: 1, name: "交通" }, amount: 100 },
-          { tag_id: 2, tag: { id: 2, name: "吃饭" }, amount: 300 },
-          { tag_id: 3, tag: { id: 3, name: "购物" }, amount: 200 },
+          {
+            tag_id: 1,
+            tag: { id: 1, name: "交通", sign: faker.internet.emoji() },
+            amount: 100,
+          },
+          {
+            tag_id: 2,
+            tag: { id: 2, name: "吃饭", sign: faker.internet.emoji() },
+            amount: 300,
+          },
+          {
+            tag_id: 3,
+            tag: { id: 3, name: "购物", sign: faker.internet.emoji() },
+            amount: 200,
+          },
         ],
         summary: 600,
       },
@@ -39,8 +51,8 @@ export const mockItemIndexBalance: Mock = (config) => {
     {
       expenses: 9900,
       income: 9900,
-      balance: 0
-    }
+      balance: 0,
+    },
   ]
 }
 
@@ -68,7 +80,7 @@ export const mockItemIndex: Mock = (config) => {
       amount: Math.floor(Math.random() * 10000),
       tags_id: [createId()],
       tags: [createTag()],
-      happen_at: faker.date.past().toISOString(),
+      happend_at: faker.date.past().toISOString(),
       kind: config.params.kind,
     }))
   const createBody = (n = 1, attrs?: any) => ({
@@ -121,7 +133,7 @@ export const mockItemCreate: Mock = (config) => {
         amount: 9900,
         note: null,
         tags_id: [3508],
-        happen_at: "2020-10-29T16:00:00.000Z",
+        happend_at: "2020-10-29T16:00:00.000Z",
         created_at: "2022-07-03T15:35:56.301Z",
         updated_at: "2022-07-03T15:35:56.301Z",
         kind: "expenses",
