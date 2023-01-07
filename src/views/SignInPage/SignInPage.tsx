@@ -67,7 +67,13 @@ export const SignInPage = defineComponent({
 
     const onClickSendValidationCode = async () => {
       const response = await http
-        .post("/validation_codes", { email: formData.email })
+        .post(
+          "/validation_codes",
+          { email: formData.email },
+          {
+            _autoLoading: true,
+          }
+        )
         .catch(onError)
       // console.log(response)
       refValidationCode.value.startCount()
