@@ -7,11 +7,11 @@ export const ItemSummary = defineComponent({
   props: {
     startDate: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     },
     endDate: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     },
   },
   setup: (props, context) => {
@@ -19,15 +19,19 @@ export const ItemSummary = defineComponent({
     const hasMore = ref(false)
     const page = ref(0)
     const fetchItems = async () => {
-      const response = await http.get<Resources<Item>>('/items', {
+      if (!props.startDate || !props.endDate) {
+        return
+      }
+      const response = await http.get<Resources<Item>>("/items", {
         happen_after: props.startDate,
         happen_before: props.endDate,
         page: page.value + 1,
-        _mock: 'itemIndex',
+        _mock: "itemIndex",
       })
       const { resources, pager } = response.data
       items.value?.push(...resources)
-      hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
+      hasMore.value =
+        (pager.page - 1) * pager.per_page + resources.length < pager.count
       page.value += 1
     }
     onMounted(fetchItems)
@@ -58,7 +62,9 @@ export const ItemSummary = defineComponent({
                   <div class={s.text}>
                     <div class={s.tagAndAmount}>
                       <span class={s.tag}>{item.tags_id[0]}</span>
-                      <span class={s.amount}>￥<>{item.amount}</></span>
+                      <span class={s.amount}>
+                        ￥<>{item.amount}</>
+                      </span>
                     </div>
                     <div class={s.time}>{item.happen_at}</div>
                   </div>
@@ -66,16 +72,17 @@ export const ItemSummary = defineComponent({
               ))}
             </ol>
             <div class={s.more}>
-              {hasMore.value ?
-                <Button onClick={fetchItems}>加载更多</Button> :
+              {hasMore.value ? (
+                <Button onClick={fetchItems}>加载更多</Button>
+              ) : (
                 <span>没有更多</span>
-              }
+              )}
             </div>
           </>
         ) : (
           <div>记录为空</div>
         )}
-        <FloatButton iconName="add" />
+        <FloatButton iconName='add' />
       </div>
     )
   },
