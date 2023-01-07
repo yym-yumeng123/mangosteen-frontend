@@ -33,6 +33,7 @@ export const ItemSummary = defineComponent({
         },
         {
           _mock: "itemIndex",
+          _autoLoading: true,
         }
       )
       const { resources, pager } = response.data
@@ -71,6 +72,7 @@ export const ItemSummary = defineComponent({
         },
         {
           _mock: "itemIndexBalance",
+          _autoLoading: true,
         }
       )
       Object.assign(itemsBalance, response.data)
