@@ -13,7 +13,7 @@ const pushMap: Record<string, string> = {
   welcomeOne: "/welcome/two",
   welcomeTwo: "/welcome/three",
   welcomeThree: "/welcome/four",
-  welcomeFour: "/start",
+  welcomeFour: "/items",
 }
 
 export const WelcomePage = defineComponent({

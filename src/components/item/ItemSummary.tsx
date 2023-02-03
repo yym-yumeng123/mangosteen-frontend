@@ -1,8 +1,11 @@
 import { defineComponent, onMounted, PropType, reactive, ref, watch } from "vue"
+import { RouterLink } from "vue-router"
 import { Button } from "../../shared/Button/Button"
+import { Center } from "../../shared/Center/Center"
 import { Datetime } from "../../shared/DateTime/DateTime"
 import { FloatButton } from "../../shared/FloatButton/FloatButton"
 import { http } from "../../shared/Http"
+import { Icon } from "../../shared/Icon/Icon"
 import { Money } from "../../shared/Money/Money"
 import s from "./ItemSummary.module.scss"
 export const ItemSummary = defineComponent({
@@ -91,7 +94,7 @@ export const ItemSummary = defineComponent({
     )
     return () => (
       <div class={s.wrapper}>
-        {items.value ? (
+        {items.value && items.value.length > 0 ? (
           <>
             <ul class={s.total}>
               <li>
@@ -136,9 +139,20 @@ export const ItemSummary = defineComponent({
             </div>
           </>
         ) : (
-          <div>记录为空</div>
+          <>
+            <Center class={s.pig_wrapper}>
+              <Icon name='pig' class={s.pig} />
+            </Center>
+            <div class={s.button_wrapper}>
+              <RouterLink to='/items/create'>
+                <Button class={s.button}>开始记账</Button>
+              </RouterLink>
+            </div>
+          </>
         )}
-        <FloatButton iconName='add' />
+        <RouterLink to='/items/create'>
+          <FloatButton iconName='add' />
+        </RouterLink>
       </div>
     )
   },

@@ -11,7 +11,7 @@ fetchMe()
 
 router.beforeEach((to, from) => {
   if (
-    ["/", "/start"].includes(to.path) ||
+    ["/", "/items"].includes(to.path) ||
     to.path.startsWith("/welcome") ||
     to.path.startsWith("/sign_in")
   ) {
