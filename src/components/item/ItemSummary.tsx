@@ -8,6 +8,7 @@ import { http } from "../../shared/Http"
 import { Icon } from "../../shared/Icon/Icon"
 import { Money } from "../../shared/Money/Money"
 import s from "./ItemSummary.module.scss"
+import { useAfterMe } from "../../hooks/useAfterMe"
 export const ItemSummary = defineComponent({
   props: {
     startDate: {
@@ -44,7 +45,7 @@ export const ItemSummary = defineComponent({
         (pager.page - 1) * pager.per_page + resources.length < pager.count
       page.value += 1
     }
-    onMounted(fetchItems)
+    useAfterMe(fetchItems)
 
     watch(
       () => [props.startDate, props.endDate],
@@ -78,7 +79,7 @@ export const ItemSummary = defineComponent({
       )
       Object.assign(itemsBalance, response.data)
     }
-    onMounted(fetchItemsBalance)
+    useAfterMe(fetchItemsBalance)
     watch(
       () => [props.startDate, props.endDate],
       () => {

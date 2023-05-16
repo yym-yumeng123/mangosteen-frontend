@@ -1,5 +1,5 @@
 import { createApp } from "vue"
-import { createPinia } from "pinia"
+import { createPinia, storeToRefs } from "pinia"
 import { createRouter } from "vue-router"
 import App from "./App"
 import { routes } from "./router/routes"
@@ -15,6 +15,7 @@ app.use(router)
 app.mount("#app")
 
 const meStore = useMeStore()
+const { mePromise } = storeToRefs(meStore)
 meStore.fetchMe()
 
 router.beforeEach((to, from) => {
@@ -25,7 +26,7 @@ router.beforeEach((to, from) => {
   ) {
     return true
   } else {
-    return meStore.mePromise!.then(
+    return mePromise!.value!.then(
       () => true,
       () => "/sign_in?return_to=" + to.path
     )
