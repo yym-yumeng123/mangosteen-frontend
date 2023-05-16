@@ -16,7 +16,7 @@ export const TagForm = defineComponent({
 
     const formData = reactive<Partial<Tag>>({
       id: undefined,
-      kind: route.query.kind!.toString() as ('expenses' | 'income'),
+      kind: route.query.kind!.toString() as "expenses" | "income",
       name: "",
       sign: "",
     })
@@ -43,11 +43,9 @@ export const TagForm = defineComponent({
       if (!hasError(errors)) {
         const promise = (await formData.id)
           ? http.patch(`/tags/${formData.id}`, formData, {
-              _mock: "tagEdit",
               _autoLoading: true,
             })
           : http.post("/tags", formData, {
-              _mock: "tagCreate",
               _autoLoading: true,
             })
         await promise.catch((error) =>
@@ -64,7 +62,7 @@ export const TagForm = defineComponent({
       const response = await http.get<Resource<Tag>>(
         `/tags/${props.id}`,
         {},
-        { _mock: "tagShow", _autoLoading: true }
+        { _autoLoading: true }
       )
       Object.assign(formData, response.data.resource)
     })

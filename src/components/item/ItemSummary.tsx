@@ -30,8 +30,8 @@ export const ItemSummary = defineComponent({
       const response = await http.get<Resources<Item>>(
         "/items",
         {
-          happen_after: props.startDate,
-          happen_before: props.endDate,
+          happend_after: props.startDate,
+          happend_before: props.endDate,
           page: page.value + 1,
         },
         {
@@ -68,12 +68,11 @@ export const ItemSummary = defineComponent({
       const response = await http.get(
         "/items/balance",
         {
-          happen_after: props.startDate,
-          happen_before: props.endDate,
+          happend_after: props.startDate,
+          happend_before: props.endDate,
           page: page.value + 1,
         },
         {
-          _mock: "itemIndexBalance",
           _autoLoading: true,
         }
       )
