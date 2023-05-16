@@ -74,3 +74,5 @@ export const WelcomePage = defineComponent({
     )
   },
 })
+
+export default WelcomePage

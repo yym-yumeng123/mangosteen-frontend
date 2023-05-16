@@ -12,6 +12,8 @@ declare module "*.vue" {
   export default component
 }
 
+declare var DEBUG: boolean
+
 type JSONValue =
   | null
   | boolean
