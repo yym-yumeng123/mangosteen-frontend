@@ -6,8 +6,8 @@ import { Dialog } from "vant"
 import { defineComponent, onMounted, PropType, ref } from "vue"
 import { RouterLink, useRoute } from "vue-router"
 import { Icon } from "../Icon/Icon"
-import { mePromise } from "../me"
 import s from "./Overlay.module.scss"
+import { useMeStore } from "../../stores/useMeStore"
 
 export const Overlay = defineComponent({
   props: {
@@ -16,21 +16,22 @@ export const Overlay = defineComponent({
     },
   },
   setup: (props, context) => {
+    const meStore = useMeStore()
     const close = () => {
       props.onClose?.()
     }
     const route = useRoute()
     const me = ref<User>()
     onMounted(async () => {
-      const response = await mePromise
+      const response = await meStore.mePromise
       me.value = response?.data.resource
     })
     const onSignOut = async () => {
       await Dialog.confirm({
-        title: '确认',
-        message: '你真的要退出登录吗？',
+        title: "确认",
+        message: "你真的要退出登录吗？",
       })
-      localStorage.removeItem('jwt')
+      localStorage.removeItem("jwt")
     }
     return () => (
       <>
@@ -52,20 +53,20 @@ export const Overlay = defineComponent({
           <nav>
             <ul class={s.action_list}>
               <li>
-                <RouterLink to="/statistics" class={s.action}>
-                  <Icon name="charts" class={s.icon} />
+                <RouterLink to='/statistics' class={s.action}>
+                  <Icon name='charts' class={s.icon} />
                   <span>统计图表</span>
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/export" class={s.action}>
-                  <Icon name="export" class={s.icon} />
+                <RouterLink to='/export' class={s.action}>
+                  <Icon name='export' class={s.icon} />
                   <span>导出数据</span>
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/notify" class={s.action}>
-                  <Icon name="notify" class={s.icon} />
+                <RouterLink to='/notify' class={s.action}>
+                  <Icon name='notify' class={s.icon} />
                   <span>记账提醒</span>
                 </RouterLink>
               </li>

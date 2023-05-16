@@ -6,11 +6,12 @@ import { Button } from "../../shared/Button/Button"
 import { Form, FormItem } from "../../shared/Form/Form"
 import { http } from "../../shared/Http"
 import { Icon } from "../../shared/Icon/Icon"
-import { refreshMe } from "../../shared/me"
 import { hasError, validate } from "../../shared/validate"
 import s from "./SignInPage.module.scss"
+import { useMeStore } from "../../stores/useMeStore"
 export const SignInPage = defineComponent({
   setup: (props, context) => {
+    const meStore = useMeStore()
     const router = useRouter()
     const route = useRoute()
     const formData = reactive({
@@ -53,9 +54,8 @@ export const SignInPage = defineComponent({
         // const xxx = localStorage.getItem('returnTo')
         console.log("route.path", route.query.return_to?.toString())
         const returnTo = route.query.return_to?.toString()
-        refreshMe().then(() => {
-          router.push(route.query.return_to?.toString() || "/")
-        })
+        meStore.refreshMe()
+        router.push(route.query.return_to?.toString() || "/")
       }
     }
     const onError = (error: any) => {

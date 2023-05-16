@@ -1,14 +1,21 @@
 import { createApp } from "vue"
-import { createPinia } from 'pinia'
+import { createPinia } from "pinia"
 import { createRouter } from "vue-router"
 import App from "./App"
 import { routes } from "./router/routes"
 import { history } from "./shared/history"
 import "@svgstore"
-import { fetchMe, mePromise } from "./shared/me"
+import { useMeStore } from "./stores/useMeStore"
 const router = createRouter({ history, routes })
 
-fetchMe()
+const pinia = createPinia()
+const app = createApp(App)
+app.use(pinia)
+app.use(router)
+app.mount("#app")
+
+const meStore = useMeStore()
+meStore.fetchMe()
 
 router.beforeEach((to, from) => {
   if (
@@ -18,15 +25,9 @@ router.beforeEach((to, from) => {
   ) {
     return true
   } else {
-    return mePromise!.then(
+    return meStore.mePromise!.then(
       () => true,
       () => "/sign_in?return_to=" + to.path
     )
   }
 })
-
-const pinia = createPinia()
-const app = createApp(App)
-app.use(pinia)
-app.use(router)
-app.mount("#app")
